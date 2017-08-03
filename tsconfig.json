@@ -1,10 +1,9 @@
 ﻿{
   "compilerOptions": {
-    "module": "system",
+    "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outFile": "../../dist/build.js",
     "sourceMap": true
   },
   "include": [
