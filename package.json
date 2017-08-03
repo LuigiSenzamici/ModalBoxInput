@@ -1,0 +1,37 @@
+{
+  "name": "modal-box-input",
+  "version": "1.0.1",
+  "description": "A modal box for input data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuigiSenzamici/ModalBoxInput.git"
+  },
+  "keywords": [
+    "Modal",
+    "Box",
+    "input",
+    "value",
+    "input",
+    "data",
+    "input",
+    "text"
+  ],
+  "author": "Luigi Senzamici (luigisenzamici@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LuigiSenzamici/ModalBoxInput/issues"
+  },
+  "homepage": "https://github.com/LuigiSenzamici/ModalBoxInput#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-documentation": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-typescript": "^3.2.1"
+  },
+  "dependencies": {}
+}
