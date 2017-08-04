@@ -1,5 +1,4 @@
-﻿
-class ElementoBase {
+﻿class ElementoBase {
     nome: string;
     id: string;
     classe: string;
@@ -118,8 +117,9 @@ class ElementoBase {
         return null;
     }
     public getInstance(): any { return this.elementInstance; }
-    public on(event: string, Func: Function, bubling: boolean=false): void {
+    public on(event: string, Func: Function, bubling: boolean=false): Promise<string> {
         this.elementInstance.addEventListener(event, Func, bubling);
+        return Promise.resolve<string>("ciao dall'event lisenter");
     }
 }
 class ElementoInput extends ElementoBase {
@@ -135,6 +135,13 @@ class ElementoInput extends ElementoBase {
         this.elementInstance.setAttribute("name", this.name);
         this.elementInstance.setAttribute("type", this.tipo);
         return this.elementInstance;
+    }
+    public setValue(val: string): void {
+        (document.getElementById(this.id) as HTMLInputElement).value = val;
+       
+    }
+    public getValue(): string {
+        return (document.getElementById(this.id) as HTMLInputElement).value;
     }
 }
 class ElementoLabel extends ElementoBase {
@@ -242,16 +249,16 @@ class ElementoInputForm extends ElementoBase {
     public create(): any {
         this.elementInstance = super.create();
         this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
-        this.inputElement = new ElementoInput("input", "id-" + this.label, "MBI-inputElement", this.elementInstance);
+        this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
         this.N_labelElement = this.labelElement.create();
         this.N_inputElement = this.inputElement.create();
         return this.elementInstance;
     }
     public getValue(): string {
-        return this.N_inputElement.getAttribute("value");
+        return this.inputElement.getValue();
     }
     public setValue(val: string): void {
-        this.N_inputElement.setAttribute("value", val);
+        this.inputElement.setValue(val);
     }
 }
 class ModalBoxInput {
@@ -317,7 +324,24 @@ class ModalBoxInput {
 
                 this.resetButton = new ElementoButton("MB-resetButton", "MBI-resetButton", N_buttonBox, testoBottoniP[1]);
                 let N_resetButton = this.resetButton.create();
+                var that = this;
+                function EventReset(event: any): void{
+                    that.inputList.forEach((e, i, a) => {
+                        e.setValue("");
+                    });
+                }
+                this.resetButton.on("click", EventReset);
+                
             }
+            private async leggiV(): Promise<string> {
+               return await this.EventOk();
+            }
+            private EventOk():Promise<string>{
+                function Cliccato(event: any):any {
+                    console.log("operazioni nel click");
+                }
+                return this.okButton.on("click", Cliccato);
+             }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
                 this.overlay = new Overlay(false);
                 this.mainBox = new Box(false);
@@ -330,9 +354,11 @@ class ModalBoxInput {
                 this.genButtonBox(N_mainBox, testoBottoni);               
 
             }
-            public Open(): void {
+            public Open():any{
                 this.overlay.setVisibility(true);
                 this.mainBox.setVisibility(true);
+                let data = this.leggiV();
+                return data;
             }
             public Close(): void {
                 this.overlay.setVisibility(false);

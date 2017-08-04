@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/LuigiSenzamici/ModalBoxInput#readme",
   "devDependencies": {
+    "@types/core-js": "^0.9.36",
     "browserify": "^14.4.0",
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",
