@@ -1,14 +1,5 @@
-﻿var classi = require("./ModalBoxInput.js");
-
-var eb = classi.ElementoBase;
-var div = new eb("div", "primodiv", "divclasse", "body");
-div.create();
-
-var inp = classi.ElementoInput;
-var input = new inp("text", "primoinput", "inputclasse", "body");
-var nodo = input.create();
-nodo.addEventListener("input", function (e) {
-    console.log("input");
-});
+﻿var Modulo = require("./ModalBoxInput.js");
+var ModalBoxinput = new Modulo.ModalBoxInput("primo box", "adesso proviamo cosa succede", ["username", "password"]);
+ModalBoxinput.Open();
 
 

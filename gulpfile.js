@@ -14,12 +14,12 @@ gulp.task("stylus:Qtest", function () {
                 .pipe(stylus())
                 .pipe(gulp.dest("./quickVisualTest/"));
 });
-gulp.task("ts:temp", function () {
+gulp.task("1ts:temp", function () {
     return gulp.src("./src/ts/ModalBoxInput.ts")
                 .pipe(ts())
                 .pipe(gulp.dest("./temp/"));
 });
-gulp.task("ts:Qtest", function () {
+gulp.task("2ts:Qtest", function () {
     return gulp.src("./temp/indexfortest.js")
                 .pipe(browserify())
                 .pipe(gulp.dest("./quickVisualTest/"))
