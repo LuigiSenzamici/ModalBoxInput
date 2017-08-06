@@ -16,22 +16,18 @@ gulp.task("stylus:Qtest", function () {
 });
 gulp.task("1ts:temp", function () {
     return gulp.src("./src/ts/ModalBoxInput.ts")
-                .pipe(ts({
-                    "compilerOptions": {
-                        "moduleResolution":"node",
-                        "module": "commonjs",
-                        "noImplicitAny": true,
-                        "removeComments": true,
-                        "preserveConstEnums": true,
-                        "sourceMap": true,
-                        "target":"es2015"
-                    }
-                }))
+                .pipe(ts())
                 .pipe(gulp.dest("./temp/"));
 });
 gulp.task("2ts:Qtest", function () {
     return gulp.src("./temp/indexfortest.js")
                 .pipe(browserify())
                 .pipe(gulp.dest("./quickVisualTest/"))
+});
+gulp.task("ts:dist", function(){
+        return gulp.src("./src/ts/ModalBoxInput.ts")
+                .pipe(ts())
+                .pipe(uglify())
+                .pipe(gulp.dest("./dist/"));
 });
 

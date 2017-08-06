@@ -10,41 +10,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 exports.__esModule = true;
 var ElementoBase = (function () {
     function ElementoBase(nome, id, classe, parent) {
@@ -53,6 +18,10 @@ var ElementoBase = (function () {
         this.classe = classe;
         this.parent = (typeof (parent) === "string") ? document.getElementById(parent) : parent;
     }
+    ElementoBase.prototype.removeText = function () {
+        while (this.elementInstance.hasChildNodes())
+            this.elementInstance.removeChild(this.elementInstance.firstChild);
+    };
     ElementoBase.prototype.create = function () {
         var e = document.createElement(this.nome);
         e.id = this.id;
@@ -61,9 +30,9 @@ var ElementoBase = (function () {
         this.elementInstance = e;
         return e;
     };
-    ElementoBase.prototype.attr = function (name, val) {
-        if (val) {
-            this.elementInstance.setAttribute(name, val);
+    ElementoBase.prototype.attr = function (name, value) {
+        if (value) {
+            this.elementInstance.setAttribute(name, value);
             return;
         }
         return this.elementInstance.getAttribute(name);
@@ -71,21 +40,21 @@ var ElementoBase = (function () {
     ElementoBase.prototype.removeAttr = function (name) {
         this.elementInstance.removeAttribute(name);
     };
-    ElementoBase.prototype.removeClass = function (classe) {
+    ElementoBase.prototype.removeClass = function (className) {
         var res = [];
         var strClassi = this.elementInstance.getAttribute("class");
         if (strClassi != null && strClassi != undefined && strClassi.length > 0) {
             var elencoClassi = strClassi.split(" ");
             if (elencoClassi != null && elencoClassi != undefined && elencoClassi.length > 0) {
-                if (classe.indexOf("@") != -1) {
-                    var check = classe.substring(1, classe.length);
+                if (className.indexOf("@") != -1) {
+                    var check = className.substring(1, className.length);
                     res = elencoClassi.filter(function (e) {
                         return e.indexOf(check) == -1;
                     });
                 }
                 else {
                     res = elencoClassi.filter(function (e) {
-                        return e != classe;
+                        return e != className;
                     });
                 }
             }
@@ -93,31 +62,31 @@ var ElementoBase = (function () {
             this.elementInstance.setAttribute("class", newClassi);
         }
     };
-    ElementoBase.prototype.setClass = function (classe) {
+    ElementoBase.prototype.setClass = function (className) {
         var res = [];
         var strClassi = this.elementInstance.getAttribute("class");
         if (strClassi != null && strClassi != undefined && strClassi.length > 0) {
             var elencoClassi = strClassi.split(" ");
             if (elencoClassi != null && elencoClassi != undefined && elencoClassi.length > 0) {
-                elencoClassi.push(classe);
+                elencoClassi.push(className);
                 var newClassi = elencoClassi.join(" ");
                 this.elementInstance.setAttribute("class", newClassi);
             }
             else {
-                this.elementInstance.setAttribute("class", classe);
+                this.elementInstance.setAttribute("class", className);
             }
         }
         else {
-            this.elementInstance.setAttribute("class", classe);
+            this.elementInstance.setAttribute("class", className);
         }
     };
-    ElementoBase.prototype.setStyle = function (stringaNomeValore) {
-        if (stringaNomeValore.indexOf(";") == -1)
+    ElementoBase.prototype.setStyle = function (nameValueString) {
+        if (nameValueString.indexOf(";") == -1)
             throw new Error("Bad Format: 'name:value;' is correct.");
-        var listaImp = stringaNomeValore.split(";");
+        var listaImp = nameValueString.split(";");
         var stStile = this.getStyle(null);
         if (stStile == null) {
-            this.attr("style", stringaNomeValore);
+            this.attr("style", nameValueString);
             return;
         }
         var listaStili = stStile.split(";");
@@ -185,8 +154,8 @@ var ElementoInput = (function (_super) {
         this.elementInstance.setAttribute("type", this.tipo);
         return this.elementInstance;
     };
-    ElementoInput.prototype.setValue = function (val) {
-        document.getElementById(this.id).value = val;
+    ElementoInput.prototype.setValue = function (value) {
+        document.getElementById(this.id).value = value;
     };
     ElementoInput.prototype.getValue = function () {
         return document.getElementById(this.id).value;
@@ -223,6 +192,11 @@ var ElementoButton = (function (_super) {
         this.elementInstance.appendChild(t);
         return this.elementInstance;
     };
+    ElementoButton.prototype.setText = function (value) {
+        this.removeText();
+        var testo = document.createTextNode(value);
+        this.elementInstance.appendChild(testo);
+    };
     return ElementoButton;
 }(ElementoBase));
 var ElementoText = (function (_super) {
@@ -237,6 +211,15 @@ var ElementoText = (function (_super) {
         var testo = document.createTextNode(this.text);
         this.elementInstance.appendChild(testo);
         return this.elementInstance;
+    };
+    ElementoText.prototype.setText = function (val) {
+        this.removeText();
+        var testo = document.createTextNode(val);
+        this.elementInstance.appendChild(testo);
+    };
+    ElementoText.prototype.getText = function () {
+        var testo = this.elementInstance.firstChild;
+        return testo;
     };
     return ElementoText;
 }(ElementoBase));
@@ -304,8 +287,11 @@ var ElementoInputForm = (function (_super) {
         this.elementInstance = _super.prototype.create.call(this);
         this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
         this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
+        this.errorText = new ElementoText("ErrorText-" + this.label, "MBI-ErrorText", this.elementInstance, "");
         this.N_labelElement = this.labelElement.create();
         this.N_inputElement = this.inputElement.create();
+        this.N_errorText = this.errorText.create();
+        this.errorText.setStyle("display:none;");
         return this.elementInstance;
     };
     ElementoInputForm.prototype.getValue = function () {
@@ -314,8 +300,25 @@ var ElementoInputForm = (function (_super) {
     ElementoInputForm.prototype.setValue = function (val) {
         this.inputElement.setValue(val);
     };
+    ElementoInputForm.prototype.showErrorMessage = function (val) {
+        this.errorText.setText(val);
+        this.errorText.setStyle("display:block;");
+    };
+    ElementoInputForm.prototype.hideErrorMessage = function () {
+        this.errorText.setText("");
+        this.errorText.setStyle("display:none;");
+    };
     return ElementoInputForm;
 }(ElementoBase));
+var validationRule = (function () {
+    function validationRule(field, validationFunction, errorMessage) {
+        this.field = field;
+        this.rule = validationFunction;
+        this.error = errorMessage;
+    }
+    return validationRule;
+}());
+exports.validationRule = validationRule;
 var ModalBoxInput = (function () {
     function ModalBoxInput(titolo, messaggio, listaInput, testoBottoni) {
         if (titolo === void 0) { titolo = ""; }
@@ -323,6 +326,7 @@ var ModalBoxInput = (function () {
         if (listaInput === void 0) { listaInput = []; }
         if (testoBottoni === void 0) { testoBottoni = ["Ok", "Reset"]; }
         this.inputList = [];
+        this.validationRules = [];
         this.overlay = new Overlay(false);
         this.mainBox = new Box(false);
         var N_overlay = this.overlay.create();
@@ -347,6 +351,10 @@ var ModalBoxInput = (function () {
         this.closeButton.setStyle("position:relative;width:16px;height:17px;padding:0;font-weight:700;float:right;");
         var that = this;
         function Event_Chiudi(event) {
+            that.inputList.forEach(function (e, i, a) {
+                e.setValue("");
+                e.hideErrorMessage();
+            });
             that.Close();
         }
         this.closeButton.on("click", Event_Chiudi);
@@ -375,51 +383,98 @@ var ModalBoxInput = (function () {
         var N_buttonBox = this.buttonBox.create();
         this.okButton = new ElementoButton("MB-okButton", "MBI-okButton", N_buttonBox, testoBottoniP[0]);
         var N_okButton = this.okButton.create();
+        this.okButton.on("click", this.EventOk);
+        var that = this;
         this.resetButton = new ElementoButton("MB-resetButton", "MBI-resetButton", N_buttonBox, testoBottoniP[1]);
         var N_resetButton = this.resetButton.create();
-        var that = this;
         function EventReset(event) {
             that.inputList.forEach(function (e, i, a) {
                 e.setValue("");
+                e.hideErrorMessage();
             });
         }
         this.resetButton.on("click", EventReset);
     };
-    ModalBoxInput.prototype.leggiV = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.EventOk()];
-                    case 1: return [2 /*return*/, _a.sent()];
+    ModalBoxInput.prototype.dataIsValid = function () {
+        var _this = this;
+        var res = true;
+        if (this.validationRules.length == 0)
+            return true;
+        this.inputList.forEach(function (e, i, a) {
+            var rules = _this.validationRules.filter(function (ev, iv, av) {
+                return e.label == ev.field;
+            });
+            rules.every(function (er) {
+                if (er.rule(e.getValue()) == false) {
+                    e.showErrorMessage(er.error);
+                    res = false;
+                    return false;
                 }
+                return true;
             });
         });
-    };
-    ModalBoxInput.prototype.EventOk = function () {
-        function Cliccato(event) {
-            console.log("operazioni nel click");
-        }
-        return this.okButton.on("click", Cliccato);
+        return res;
     };
     ModalBoxInput.prototype.Open = function () {
         this.overlay.setVisibility(true);
         this.mainBox.setVisibility(true);
-        var data = this.leggiV();
-        return data;
     };
     ModalBoxInput.prototype.Close = function () {
         this.overlay.setVisibility(false);
         this.mainBox.setVisibility(false);
+    };
+    ModalBoxInput.prototype.setTitle = function (title) {
+        this.titleText.setText(title);
+    };
+    ModalBoxInput.prototype.setMessage = function (message) {
+        this.text.setText(message);
+    };
+    ModalBoxInput.prototype.setButtonsText = function (ok_reset) {
+        this.okButton.setText(ok_reset[0]);
+        this.resetButton.setText(ok_reset[1]);
+    };
+    ModalBoxInput.prototype.setOKButtonText = function (value) {
+        this.okButton.setText(value);
+    };
+    ModalBoxInput.prototype.setResetButtonText = function (value) {
+        this.resetButton.setText(value);
+    };
+    ModalBoxInput.prototype.setOkButtonEvent = function (functionToExec) {
+        var _this = this;
+        this.EventOk = function (event) {
+            _this.inputList.forEach(function (e, i, a) {
+                e.hideErrorMessage();
+            });
+            if (_this.dataIsValid()) {
+                var Res_1 = [];
+                _this.inputList.forEach(function (e, i, a) {
+                    Res_1.push({ name: e.label, value: e.getValue() });
+                });
+                _this.Close();
+                functionToExec(Res_1);
+            }
+        };
+        this.okButton.on("click", this.EventOk);
+    };
+    ModalBoxInput.prototype.setValidationRule = function (rules) {
+        this.validationRules = rules;
     };
     return ModalBoxInput;
 }());
 exports.ModalBoxInput = ModalBoxInput;
 
 },{}],2:[function(require,module,exports){
-var Modulo = require("./ModalBoxInput.js");
-var ModalBoxinput = new Modulo.ModalBoxInput("primo box", "adesso proviamo cosa succede", ["username", "password"]);
-var result = ModalBoxinput.Open();
-console.log(result);
+var MBI = require("./ModalBoxInput.js");
+var ModalBoxinput = new MBI.ModalBoxInput("primo box", "adesso proviamo cosa succede", ["username", "password"]);
+var valRuleClass = MBI.validationRule;
+var username0 = new valRuleClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "il campo non puo essere vuoto");
+var username1 = new valRuleClass("username", function(val){return (val.length>3)?true:false;}, "la lunghezza deve essere > 3");
+var password = new valRuleClass("password", function(val){return (val.length>0)?true:false;}, "il campo non puo essere vuoto");
+ModalBoxinput.setValidationRule([username0, username1, password]);
+ModalBoxinput.setOkButtonEvent(function (valori) { console.log(valori);})
+ModalBoxinput.Open();
+
+
 
 
 

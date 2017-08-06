@@ -56,6 +56,13 @@ gulpfile.js
 
 doc/*
 src/*
+test/*
+temp/*
+quickVisualTest/
+.vscode/*
+.vs/*
+obj/*
 MD_API_doc/*
 HTML_doc/*
+.ntvs_analysis.dat.tmp
 *.sln
