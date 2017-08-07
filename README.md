@@ -38,6 +38,34 @@ and now
 Box.open();
 
 ![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputExample.PNG)
+
+## Validation
+it's also possible validate the input applying validation rule
+
+first get validationRule class
+
+var VRClass = require("Modal-Box-Input").validationRule;
+
+//use
+
+// var rule = new VRClass("input name", function(value_valueof_input){//code that return a boolean}, "error message");
+
+var username0 = new VRClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "field can't be empty");
+
+var username1 = new VRClass("username", function(val){return (val.length>3)?true:false;}, "field length must be > 3");
+
+var password0 = new VRClass("password", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "field can't be empty");
+
+var password1 = new VRClass("password", function(val){return (val.length>3)?true:false;}, "field length must be > 3");
+
+and now (before open) set validation rule
+
+Box.setValidationRule([username0, username1, password0, password1]);
+
+rules sequence by more generic to more specific evaluation 
+
+![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputErrorExample.PNG)
+
 ## Documentation
 
 [Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/MD_API_doc/API.md)
