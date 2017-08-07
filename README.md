@@ -43,7 +43,7 @@ Box.Open();
 it's also possible validate the input applying validation rule
 
 first get validationRule class
-
+```
 var VRClass = require("Modal-Box-Input").validationRule;
 
 //use
