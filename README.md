@@ -11,20 +11,30 @@ npm install modal-box-input --save
 get boxclass from module
 
 var boxClass = require("Modal-Box-Input").ModalBoxInput;
+
 var Box = new boxClass("title", "message", ["input 1 name", "input 2 name" ... "input n name"], ["ok button text", "reset button text"]);
 
+
 Box.okButtonEvent(fuctioni(dataFromInputs){
+
     //do something with array of name/value input
+
     //[
+
     //   {name:"input 1 name", value:"value of input 1"}
+
     //   {name:"input 2 name", value:"value of input 2"}
+
     //   ..... 
+
     //   {name:"input n name", value:"value of input n"} 
+
     //    ];
 
 });
 
 and now
+
 Box.open();
 
 ## Documentation
