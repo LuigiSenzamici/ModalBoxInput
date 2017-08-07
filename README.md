@@ -35,7 +35,7 @@ Box.okButtonEvent(fuction(dataFromInputs){
 
 and now
 
-Box.open();
+Box.Open();
 
 ![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputExample.PNG)
 
