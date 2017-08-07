@@ -357,6 +357,7 @@ var ModalBoxInput = (function () {
         this.genTesto(N_mainBox, messaggio);
         this.genInputList(N_mainBox, listaInput);
         this.genButtonBox(N_mainBox, testoBottoni);
+        this.genCssReference();
     }
     ModalBoxInput.prototype.genTitolo = function (parent, titolo) {
         //titleBox
@@ -470,6 +471,13 @@ var ModalBoxInput = (function () {
         res = (WW - width) / 2;
         //res = res -width/2;
         return res;
+    };
+    ModalBoxInput.prototype.genCssReference = function () {
+        var head = document.getElementsByTagName("head")[0];
+        var stile = document.createElement("link");
+        stile.setAttribute("rel", "stylesheet");
+        stile.setAttribute("href", "../node_modules/Modal-Input-Box/ModalInputBox.css");
+        head.appendChild(stile);
     };
     ModalBoxInput.prototype.Open = function () {
         this.overlay.setVisibility(true);

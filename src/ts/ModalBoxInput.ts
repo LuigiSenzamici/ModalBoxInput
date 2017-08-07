@@ -461,6 +461,13 @@ class ModalBoxInput {
                 //res = res -width/2;
                 return res;
             }
+            private genCssReference():void{
+                let head = document.getElementsByTagName("head")[0];
+                let stile = document.createElement("link");
+                stile.setAttribute("rel","stylesheet");
+                stile.setAttribute("href", "../node_modules/Modal-Input-Box/ModalInputBox.css");
+                head.appendChild(stile);
+            }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
                 this.overlay = new Overlay(false);
                 this.mainBox = new Box(false);
@@ -470,7 +477,8 @@ class ModalBoxInput {
                 this.genTitolo(N_mainBox, titolo);
                 this.genTesto(N_mainBox, messaggio);
                 this.genInputList(N_mainBox, listaInput);
-                this.genButtonBox(N_mainBox, testoBottoni);               
+                this.genButtonBox(N_mainBox, testoBottoni);   
+                this.genCssReference();            
 
             }
             public Open():void {
