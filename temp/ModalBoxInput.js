@@ -476,7 +476,7 @@ var ModalBoxInput = (function () {
         var head = document.getElementsByTagName("head")[0];
         var stile = document.createElement("link");
         stile.setAttribute("rel", "stylesheet");
-        stile.setAttribute("href", "node_modules/Modal-Input-Box/dist/ModalInputBox.css");
+        stile.setAttribute("href", "node_modules/Modal-Box-Input/dist/ModalBoxInput.css");
         head.appendChild(stile);
     };
     ModalBoxInput.prototype.Open = function () {
