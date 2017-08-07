@@ -74,6 +74,16 @@ rules evaluation sequence run by more generic to more specific rule
 
 ## Built With
 
+Typescript
+
+Browserify
+
+Gulp
+
+Stylus
+
+
+
 
 ## Authors
 
