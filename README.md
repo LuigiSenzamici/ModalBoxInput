@@ -62,7 +62,9 @@ and now (before open) set validation rule
 
 Box.setValidationRule([username0, username1, password0, password1]);
 
-rules sequence by more generic to more specific evaluation 
+Box.Open();
+
+rules evaluation sequence run by more generic to more specific rule 
 
 ![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputErrorExample.PNG)
 
