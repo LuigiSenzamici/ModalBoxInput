@@ -1,0 +1,16 @@
+MBI-Overlay
+MBI-box
+MBI-titleBox
+	MBI-Text
+	MBI-closeButton
+MBI-TextBox
+	MBI-Text
+MBI-inputBox
+	MBI-inlineInputBox
+		MBI-inputElement
+		MBI-ErrorText
+MBI-buttonBox
+	MBI-okButton
+	MBI-resetButton
+
+

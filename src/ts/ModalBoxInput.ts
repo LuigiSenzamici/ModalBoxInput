@@ -232,12 +232,12 @@ class Overlay extends ElementoBase {
     visibility: boolean = false;
     private stileDefault: string;
     constructor(visibility: boolean =false) {
-    super("div", "MB-Overlay", "overlay", document.getElementsByTagName("body")[0]);
+    super("div", "MB-Overlay", "MBI-Overlay", document.getElementsByTagName("body")[0]);
     this.visibility = visibility;
     let display: string = (this.visibility) ? "display:block;" : "display:none;";
     let width: string = "width:" + window.innerWidth + "px;";
     let height: string = "height:" + window.innerHeight + "px;";
-    this.stileDefault = display + width + height + "position:fixed;top:0;left:0;z-index:1000;background-color:black;opacity:0.5;"
+    this.stileDefault = display + width + height + "position:fixed;top:0;left:0;z-index:1000;"
     }
     public create(): any {
         this.elementInstance = super.create();
@@ -348,7 +348,7 @@ class ModalBoxInput {
                 //titleBox
                 this.titleBox = new ElementoBase("div", "MB-titleBox", "MBI-titleBox", parent);
                 let N_titleBox = this.titleBox.create();
-                this.titleBox.setStyle("height:17px;")
+                this.titleBox.setStyle("min-height:17px;")
                 //title
                 this.titleText = new ElementoText("MB-Text", "MBI-Text", N_titleBox, titolo);
                 let N_titleText = this.titleText.create();
@@ -356,7 +356,7 @@ class ModalBoxInput {
                 //close button
                 this.closeButton = new ElementoButton("MB-closeButton", "MBI-closeButton", N_titleBox, "X");
                 let N_closeButton = this.closeButton.create();
-                this.closeButton.setStyle("position:relative;width:16px;height:17px;padding:0;font-weight:700;float:right;");
+                this.closeButton.setStyle("position:relative;min-width:16px;min-height:17px;padding:0;font-weight:700;float:right;");
 
                 var that = this;
                 function Event_Chiudi(event: any): void {

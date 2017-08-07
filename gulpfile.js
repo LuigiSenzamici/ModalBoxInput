@@ -7,12 +7,19 @@ var transform = require('vinyl-transform');
 var uglify = require("gulp-uglify");
 var sourcemap = require("gulp-sourcemaps");
 var runsequence = require("run-sequence");
-
+var rename = require("gulp-rename");
 
 gulp.task("stylus:Qtest", function () {
-    return gulp.src("./src/style/index.styl")
+    return gulp.src("./src/index.styl")
                 .pipe(stylus())
+                .pipe(rename("ModalBoxInput.css"))
                 .pipe(gulp.dest("./quickVisualTest/"));
+});
+gulp.task("stylus:dist", function(){
+    return gulp.src("./src/index.styl")
+                .pipe(stylus())
+                .pipe(rename("ModalBoxInput.css"))
+                .pipe(gulp.dest("./dist/"));
 });
 gulp.task("1ts:temp", function () {
     return gulp.src("./src/ts/ModalBoxInput.ts")
@@ -25,15 +32,22 @@ gulp.task("2ts:Qtest", function () {
                 .pipe(gulp.dest("./quickVisualTest/"))
 });
 gulp.task("ts:dist", function(){
-        return gulp.src("./src/ts/ModalBoxInput.ts")
+        return gulp.src("./src/ts/ModalIBoxInput.ts")
                 .pipe(ts())
                 .pipe(uglify())
                 .pipe(gulp.dest("./dist/"));
 });
 gulp.task("ts:quickTest",function(){
     return runsequence(
-        "1ts:temp",
+        ["1ts:temp", "stylus:Qtest"],
         "2ts:Qtest"
     );
-})
+});
+gulp.task("dist",function(){
+    return runsequence(
+        ["ts:dist", "stylus:dist"]
+    );
+});
+
+
 

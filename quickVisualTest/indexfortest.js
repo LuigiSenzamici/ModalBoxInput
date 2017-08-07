@@ -249,13 +249,13 @@ var Overlay = (function (_super) {
     __extends(Overlay, _super);
     function Overlay(visibility) {
         if (visibility === void 0) { visibility = false; }
-        var _this = _super.call(this, "div", "MB-Overlay", "overlay", document.getElementsByTagName("body")[0]) || this;
+        var _this = _super.call(this, "div", "MB-Overlay", "MBI-Overlay", document.getElementsByTagName("body")[0]) || this;
         _this.visibility = false;
         _this.visibility = visibility;
         var display = (_this.visibility) ? "display:block;" : "display:none;";
         var width = "width:" + window.innerWidth + "px;";
         var height = "height:" + window.innerHeight + "px;";
-        _this.stileDefault = display + width + height + "position:fixed;top:0;left:0;z-index:1000;background-color:black;opacity:0.5;";
+        _this.stileDefault = display + width + height + "position:fixed;top:0;left:0;z-index:1000;";
         return _this;
     }
     Overlay.prototype.create = function () {
@@ -364,7 +364,7 @@ var ModalBoxInput = (function () {
         //titleBox
         this.titleBox = new ElementoBase("div", "MB-titleBox", "MBI-titleBox", parent);
         var N_titleBox = this.titleBox.create();
-        this.titleBox.setStyle("height:17px;");
+        this.titleBox.setStyle("min-height:17px;");
         //title
         this.titleText = new ElementoText("MB-Text", "MBI-Text", N_titleBox, titolo);
         var N_titleText = this.titleText.create();
@@ -372,7 +372,7 @@ var ModalBoxInput = (function () {
         //close button
         this.closeButton = new ElementoButton("MB-closeButton", "MBI-closeButton", N_titleBox, "X");
         var N_closeButton = this.closeButton.create();
-        this.closeButton.setStyle("position:relative;width:16px;height:17px;padding:0;font-weight:700;float:right;");
+        this.closeButton.setStyle("position:relative;min-width:16px;min-height:17px;padding:0;font-weight:700;float:right;");
         var that = this;
         function Event_Chiudi(event) {
             that.inputList.forEach(function (e, i, a) {
