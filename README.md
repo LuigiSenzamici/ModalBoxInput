@@ -53,10 +53,9 @@ rules evaluation sequence run by more generic to more specific rule
 
 ## Documentation
 
-[Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/MD_API_doc/API.md)
+[Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/detail/index.html)
 
 ## Built With
-
 Typescript
 
 Browserify
@@ -64,11 +63,7 @@ Browserify
 Gulp
 
 Stylus
-
-
-
-
-## Authors
+## Author
 
 [Luigi Senzamici](http://luigisenzamici.com)
 

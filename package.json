@@ -4,7 +4,9 @@
   "description": "A modal box for input data",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "npm run typedoc -- --options typedoc.json",
+    "typedoc": "typedoc"
   },
   "repository": {
     "type": "git",
@@ -31,13 +33,14 @@
     "browserify": "^14.4.0",
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",
-    "gulp-documentation": "^3.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-stylus": "^2.6.0",
+    "gulp-typedoc": "^2.0.2",
     "gulp-typescript": "^3.2.1",
     "gulp-uglify": "^3.0.0",
     "run-sequence": "^2.1.0",
+    "typedoc": "^0.8.0",
     "typescript": "^2.4.2",
     "vinyl-transform": "^1.0.0"
   },
