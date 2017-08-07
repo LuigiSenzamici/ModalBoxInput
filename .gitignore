@@ -64,5 +64,6 @@ dist/*
 .vs/*
 obj/*
 .ntvs_analysis.dat.tmp
+doc/detail/*
 
 
