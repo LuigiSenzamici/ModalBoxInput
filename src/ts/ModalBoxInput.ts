@@ -31,6 +31,7 @@
     public removeAttr(name: string):void{
         this.elementInstance.removeAttribute(name);
     }
+
     public removeClass(className:string ):void{
     var res = [];
     var strClassi = this.elementInstance.getAttribute("class");
@@ -52,6 +53,7 @@
         this.elementInstance.setAttribute("class", newClassi);
     }
     }
+
     public setClass(className:string):void{
     var res = [];
     var strClassi = this.elementInstance.getAttribute("class");
@@ -69,9 +71,11 @@
         this.elementInstance.setAttribute("class", className);
     }
     }
+
     public setStyle(nameValueString: string): void {
         if (nameValueString.indexOf(";") == -1) throw new Error("Bad Format: 'name:value;' is correct.");
         let listaImp :string[] = nameValueString.split(";");
+        listaImp.pop();
         let stStile = this.getStyle(null);
 
         if (stStile == null) {
@@ -108,22 +112,42 @@
         //lista stili contiene i valori aggiornati
         this.attr("style", listaStili.join(";"));
     }
-    public getStyle(nome: string): any {
-        if (nome == null || nome == undefined) return this.attr("style", null);
+
+    public getStyle(name: string): any {
+        if (name == null || name == undefined) {
+            let res:string =this.attr("style", null);
+            if(res!=null){
+            if(res.lastIndexOf(";")!=res.length -1)res+=";";
+            }
+            return res;
+        }
         let stStile = this.attr("style", null);
         if (stStile == null || stStile == undefined) return null;
         let listaStili: string[] = stStile.split(";");
         listaStili.forEach((e, i, a) => {
-            let name: string = e.split(":")[0];
+            let nome: string = e.split(":")[0];
             if (name == nome) return e.split(":")[1];
         });
         return null;
     }
-    public getInstance(): any { return this.elementInstance; }
-    public on(event: string, Func: Function, bubling: boolean=false): Promise<string> {
-        this.elementInstance.addEventListener(event, Func, bubling);
-        return Promise.resolve<string>("ciao dall'event lisenter");
+    public removeStyle(name:string):void{
+        if (name == null || name == undefined) return this.attr("style", null);
+        let stStile = this.attr("style", null);
+        if (stStile == null || stStile == undefined) return null;
+        let listaStili: string[] = stStile.split(";");
+        listaStili.pop();
+        let res:string[] = [];
+        listaStili.forEach((e, i, a)=>{
+                let nome:string = e.split(":")[0];
+                if(name !=nome)res.push(e);
+        });
+        this.attr("style", res.join(";"));
     }
+    public getInstance(): any { return this.elementInstance; }
+    public on(event: string, Func: Function, bubling: boolean=false):void {
+        this.elementInstance.addEventListener(event, Func, bubling);
+        
+        }
 }
 class ElementoInput extends ElementoBase {
     name: string;
@@ -207,7 +231,7 @@ class ElementoText extends ElementoBase {
 class Overlay extends ElementoBase {
     visibility: boolean = false;
     private stileDefault: string;
-    constructor(visibility: boolean) {
+    constructor(visibility: boolean =false) {
     super("div", "MB-Overlay", "overlay", document.getElementsByTagName("body")[0]);
     this.visibility = visibility;
     let display: string = (this.visibility) ? "display:block;" : "display:none;";
@@ -233,6 +257,8 @@ class Box extends ElementoBase {
     visibility: boolean = false;
     width: string;
     height: string;
+    top:string;
+    left:string;
     private stileDefault: string;
     constructor(visibility: boolean = false, width:string = "400px", height:string="auto") {
         super("div", "MB-Box", "MBI-box", document.getElementsByTagName("body")[0]);
@@ -240,7 +266,7 @@ class Box extends ElementoBase {
         let display: string = (this.visibility) ? "display:block;" : "display:none;";
         this.width= "width:" + width + ";";
         this.height = "height:" + height + ";";
-        this.stileDefault = display + this.width + this.height + "position:fixed;top:0;left:0;z-index:1001;background-color:white;opacity:1;"
+        this.stileDefault = display + this.width + this.height + "top:0px;left:0px;position:fixed;z-index:1001;background-color:white;opacity:1;"
     }
     public create(): any {
         this.elementInstance = super.create();
@@ -401,6 +427,40 @@ class ModalBoxInput {
                 });
                 return res;
             }
+            private getComputed(element:any, dim:any):number{
+                let res:number= -1;
+                let st:string;
+                let computed = window.getComputedStyle(element, null);
+                st = computed.getPropertyValue(dim);
+                res = parseInt(st.substring(0, st.length -2));
+                return res;
+             }
+            private calculateTop():number{
+                let res = -1;
+                let WH:number = window.innerHeight;
+                let height:number = this.getComputed(this.mainBox.getInstance(), "height");
+                if(WH<=height){
+                    this.mainBox.setStyle("overflow-x:scroll;height:" + WH.toString() + "px;");
+                    return 0;
+                }
+                this.inputBox.removeStyle("overflow-y");
+                res = (WH - height)/2;
+                res = res -height;
+                return res;
+            }
+            private calculateLeft():number{
+                let res = -1;
+                let WW:number = window.innerWidth;
+                let width:number = this.getComputed(this.mainBox.getInstance(), "width");
+                if(WW<=width){
+                    this.mainBox.setStyle("overflow-x:scroll;width:" + WW.toString() + "px;");
+                    return 0;
+                }
+                this.mainBox.removeStyle("overflow-x");
+                res = (WW - width)/2;
+                //res = res -width/2;
+                return res;
+            }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
                 this.overlay = new Overlay(false);
                 this.mainBox = new Box(false);
@@ -415,7 +475,11 @@ class ModalBoxInput {
             }
             public Open():void {
                 this.overlay.setVisibility(true);
+
                 this.mainBox.setVisibility(true);
+                let top:number = this.calculateTop();
+                let left:number = this.calculateLeft();
+                this.mainBox.setStyle("top:" + top + "px;left:" + left + "px;");
             }
             public Close(): void {
                 this.overlay.setVisibility(false);
@@ -456,7 +520,6 @@ class ModalBoxInput {
             public setValidationRule(rules:Array<validationRule>):void{
                 this.validationRules = rules;
             }
-
 }
 
-export { ModalBoxInput, validationRule};
+export {ModalBoxInput, validationRule};

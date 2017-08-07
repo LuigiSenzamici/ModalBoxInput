@@ -30,4 +30,10 @@ gulp.task("ts:dist", function(){
                 .pipe(uglify())
                 .pipe(gulp.dest("./dist/"));
 });
+gulp.task("ts:quickTest",function(){
+    return runsequence(
+        "1ts:temp",
+        "2ts:Qtest"
+    );
+})
 

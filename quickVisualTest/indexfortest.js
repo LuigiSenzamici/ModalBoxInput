@@ -84,6 +84,7 @@ var ElementoBase = (function () {
         if (nameValueString.indexOf(";") == -1)
             throw new Error("Bad Format: 'name:value;' is correct.");
         var listaImp = nameValueString.split(";");
+        listaImp.pop();
         var stStile = this.getStyle(null);
         if (stStile == null) {
             this.attr("style", nameValueString);
@@ -118,25 +119,46 @@ var ElementoBase = (function () {
         //lista stili contiene i valori aggiornati
         this.attr("style", listaStili.join(";"));
     };
-    ElementoBase.prototype.getStyle = function (nome) {
-        if (nome == null || nome == undefined)
-            return this.attr("style", null);
+    ElementoBase.prototype.getStyle = function (name) {
+        if (name == null || name == undefined) {
+            var res = this.attr("style", null);
+            if (res != null) {
+                if (res.lastIndexOf(";") != res.length - 1)
+                    res += ";";
+            }
+            return res;
+        }
         var stStile = this.attr("style", null);
         if (stStile == null || stStile == undefined)
             return null;
         var listaStili = stStile.split(";");
         listaStili.forEach(function (e, i, a) {
-            var name = e.split(":")[0];
+            var nome = e.split(":")[0];
             if (name == nome)
                 return e.split(":")[1];
         });
         return null;
     };
+    ElementoBase.prototype.removeStyle = function (name) {
+        if (name == null || name == undefined)
+            return this.attr("style", null);
+        var stStile = this.attr("style", null);
+        if (stStile == null || stStile == undefined)
+            return null;
+        var listaStili = stStile.split(";");
+        listaStili.pop();
+        var res = [];
+        listaStili.forEach(function (e, i, a) {
+            var nome = e.split(":")[0];
+            if (name != nome)
+                res.push(e);
+        });
+        this.attr("style", res.join(";"));
+    };
     ElementoBase.prototype.getInstance = function () { return this.elementInstance; };
     ElementoBase.prototype.on = function (event, Func, bubling) {
         if (bubling === void 0) { bubling = false; }
         this.elementInstance.addEventListener(event, Func, bubling);
-        return Promise.resolve("ciao dall'event lisenter");
     };
     return ElementoBase;
 }());
@@ -226,6 +248,7 @@ var ElementoText = (function (_super) {
 var Overlay = (function (_super) {
     __extends(Overlay, _super);
     function Overlay(visibility) {
+        if (visibility === void 0) { visibility = false; }
         var _this = _super.call(this, "div", "MB-Overlay", "overlay", document.getElementsByTagName("body")[0]) || this;
         _this.visibility = false;
         _this.visibility = visibility;
@@ -261,7 +284,7 @@ var Box = (function (_super) {
         var display = (_this.visibility) ? "display:block;" : "display:none;";
         _this.width = "width:" + width + ";";
         _this.height = "height:" + height + ";";
-        _this.stileDefault = display + _this.width + _this.height + "position:fixed;top:0;left:0;z-index:1001;background-color:white;opacity:1;";
+        _this.stileDefault = display + _this.width + _this.height + "top:0px;left:0px;position:fixed;z-index:1001;background-color:white;opacity:1;";
         return _this;
     }
     Box.prototype.create = function () {
@@ -415,9 +438,46 @@ var ModalBoxInput = (function () {
         });
         return res;
     };
+    ModalBoxInput.prototype.getComputed = function (element, dim) {
+        var res = -1;
+        var st;
+        var computed = window.getComputedStyle(element, null);
+        st = computed.getPropertyValue(dim);
+        res = parseInt(st.substring(0, st.length - 2));
+        return res;
+    };
+    ModalBoxInput.prototype.calculateTop = function () {
+        var res = -1;
+        var WH = window.innerHeight;
+        var height = this.getComputed(this.mainBox.getInstance(), "height");
+        if (WH <= height) {
+            this.mainBox.setStyle("overflow-x:scroll;height:" + WH.toString() + "px;");
+            return 0;
+        }
+        this.inputBox.removeStyle("overflow-y");
+        res = (WH - height) / 2;
+        res = res - height;
+        return res;
+    };
+    ModalBoxInput.prototype.calculateLeft = function () {
+        var res = -1;
+        var WW = window.innerWidth;
+        var width = this.getComputed(this.mainBox.getInstance(), "width");
+        if (WW <= width) {
+            this.mainBox.setStyle("overflow-x:scroll;width:" + WW.toString() + "px;");
+            return 0;
+        }
+        this.mainBox.removeStyle("overflow-x");
+        res = (WW - width) / 2;
+        //res = res -width/2;
+        return res;
+    };
     ModalBoxInput.prototype.Open = function () {
         this.overlay.setVisibility(true);
         this.mainBox.setVisibility(true);
+        var top = this.calculateTop();
+        var left = this.calculateLeft();
+        this.mainBox.setStyle("top:" + top + "px;left:" + left + "px;");
     };
     ModalBoxInput.prototype.Close = function () {
         this.overlay.setVisibility(false);
@@ -464,15 +524,15 @@ var ModalBoxInput = (function () {
 exports.ModalBoxInput = ModalBoxInput;
 
 },{}],2:[function(require,module,exports){
-var MBI = require("./ModalBoxInput.js");
-var ModalBoxinput = new MBI.ModalBoxInput("primo box", "adesso proviamo cosa succede", ["username", "password"]);
-var valRuleClass = MBI.validationRule;
-var username0 = new valRuleClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "il campo non puo essere vuoto");
-var username1 = new valRuleClass("username", function(val){return (val.length>3)?true:false;}, "la lunghezza deve essere > 3");
-var password = new valRuleClass("password", function(val){return (val.length>0)?true:false;}, "il campo non puo essere vuoto");
-ModalBoxinput.setValidationRule([username0, username1, password]);
-ModalBoxinput.setOkButtonEvent(function (valori) { console.log(valori);})
-ModalBoxinput.Open();
+var MBClass = require("./ModalBoxInput.js").ModalBoxInput;
+var VRClass = require("./ModalBoxInput.js").validationRule;
+var MBI = new MBClass("primo box", "adesso proviamo cosa succede", ["username", "password"]);
+var username0 = new VRClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "il campo non puo essere vuoto");
+var username1 = new VRClass("username", function(val){return (val.length>3)?true:false;}, "la lunghezza deve essere > 3");
+var password = new VRClass("password", function(val){return (val.length>0)?true:false;}, "il campo non puo essere vuoto");
+MBI.setValidationRule([username0, username1, password]);
+MBI.setOkButtonEvent(function (valori) { console.log(valori);})
+MBI.Open();
 
 
 

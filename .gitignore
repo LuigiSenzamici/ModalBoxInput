@@ -59,10 +59,10 @@ typings/
 .env
 dist/*
 #csharp
-*.sln
+
 .vscode/*
 .vs/*
 obj/*
 .ntvs_analysis.dat.tmp
-*.sln
+
 
