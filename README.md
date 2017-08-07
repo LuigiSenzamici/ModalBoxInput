@@ -53,7 +53,7 @@ rules evaluation sequence run by more generic to more specific rule
 
 ## Documentation
 
-[Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/detail/index.html)
+[Documentation Here](http://luigisenzamici.com/Documentazione/ModalBoxInput/modules/_modalboxinput_.html)
 
 ## Built With
 Typescript
