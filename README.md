@@ -63,6 +63,7 @@ and now (before open) set validation rule
 Box.setValidationRule([username0, username1, password0, password1]);
 
 Box.Open();
+```
 
 rules evaluation sequence run by more generic to more specific rule 
 
