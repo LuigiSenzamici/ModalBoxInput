@@ -465,7 +465,7 @@ class ModalBoxInput {
                 let head = document.getElementsByTagName("head")[0];
                 let stile = document.createElement("link");
                 stile.setAttribute("rel","stylesheet");
-                stile.setAttribute("href", "../node_modules/Modal-Input-Box/dist/ModalInputBox.css");
+                stile.setAttribute("href", "node_modules/Modal-Input-Box/dist/ModalInputBox.css");
                 head.appendChild(stile);
             }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
