@@ -32,7 +32,7 @@ gulp.task("2ts:Qtest", function () {
                 .pipe(gulp.dest("./quickVisualTest/"))
 });
 gulp.task("ts:dist", function(){
-        return gulp.src("./src/ts/ModalIBoxInput.ts")
+        return gulp.src("./src/ts/ModalBoxInput.ts")
                 .pipe(ts())
                 .pipe(uglify())
                 .pipe(gulp.dest("./dist/"));
