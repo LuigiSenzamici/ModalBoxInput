@@ -36,7 +36,8 @@ Box.okButtonEvent(fuction(dataFromInputs){
 and now
 
 Box.open();
-![Here Example](https://github.com/LuigiSenzamici/doc/BoxInputExample.PNG)
+
+![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputExample.PNG)
 ## Documentation
 
 [Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/MD_API_doc/API.md)
