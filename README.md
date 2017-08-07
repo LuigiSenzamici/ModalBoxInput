@@ -15,7 +15,7 @@ var boxClass = require("Modal-Box-Input").ModalBoxInput;
 var Box = new boxClass("title", "message", ["input 1 name", "input 2 name" ... "input n name"], ["ok button text", "reset button text"]);
 
 
-Box.okButtonEvent(fuctioni(dataFromInputs){
+Box.okButtonEvent(fuction(dataFromInputs){
 
     //do something with array of name/value input
 
@@ -36,7 +36,7 @@ Box.okButtonEvent(fuctioni(dataFromInputs){
 and now
 
 Box.open();
-
+![Here Example](https://github.com/LuigiSenzamici/doc/BoxInputExample.PNG)
 ## Documentation
 
 [Documentation Here](http://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/MD_API_doc/API.md)
