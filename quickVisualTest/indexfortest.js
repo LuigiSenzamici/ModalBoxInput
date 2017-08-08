@@ -162,7 +162,6 @@ var ElementoBase = (function () {
     };
     return ElementoBase;
 }());
-exports.ElementoBase = ElementoBase;
 var ElementoInput = (function (_super) {
     __extends(ElementoInput, _super);
     function ElementoInput(tipo, id, classe, parent) {
@@ -185,7 +184,6 @@ var ElementoInput = (function (_super) {
     };
     return ElementoInput;
 }(ElementoBase));
-exports.ElementoInput = ElementoInput;
 var ElementoLabel = (function (_super) {
     __extends(ElementoLabel, _super);
     function ElementoLabel(forId, text, parent) {
@@ -203,7 +201,6 @@ var ElementoLabel = (function (_super) {
     };
     return ElementoLabel;
 }(ElementoBase));
-exports.ElementoLabel = ElementoLabel;
 var ElementoButton = (function (_super) {
     __extends(ElementoButton, _super);
     function ElementoButton(id, classe, parent, text) {
@@ -224,7 +221,6 @@ var ElementoButton = (function (_super) {
     };
     return ElementoButton;
 }(ElementoBase));
-exports.ElementoButton = ElementoButton;
 var ElementoText = (function (_super) {
     __extends(ElementoText, _super);
     function ElementoText(id, classe, parent, text) {
@@ -249,7 +245,6 @@ var ElementoText = (function (_super) {
     };
     return ElementoText;
 }(ElementoBase));
-exports.ElementoText = ElementoText;
 var ElementoInputForm = (function (_super) {
     __extends(ElementoInputForm, _super);
     function ElementoInputForm(label, parent) {
@@ -284,7 +279,6 @@ var ElementoInputForm = (function (_super) {
     };
     return ElementoInputForm;
 }(ElementoBase));
-exports.ElementoInputForm = ElementoInputForm;
 var Overlay = (function (_super) {
     __extends(Overlay, _super);
     function Overlay(visibility) {
@@ -458,10 +452,10 @@ var ModalBoxInput = (function () {
         var WH = window.innerHeight;
         var height = this.getComputed(this.mainBox.getInstance(), "height");
         if (WH <= height) {
-            this.mainBox.setStyle("overflow-x:scroll;height:" + WH.toString() + "px;");
+            this.mainBox.setStyle("overflow-y:scroll;height:" + WH.toString() + "px;");
             return 0;
         }
-        this.inputBox.removeStyle("overflow-y");
+        this.mainBox.removeStyle("overflow-y");
         res = (WH - height) / 2;
         res = res - height;
         return res;

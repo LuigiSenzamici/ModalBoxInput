@@ -442,10 +442,10 @@ class ModalBoxInput {
                 let WH:number = window.innerHeight;
                 let height:number = this.getComputed(this.mainBox.getInstance(), "height");
                 if(WH<=height){
-                    this.mainBox.setStyle("overflow-x:scroll;height:" + WH.toString() + "px;");
+                    this.mainBox.setStyle("overflow-y:scroll;height:" + WH.toString() + "px;");
                     return 0;
                 }
-                this.inputBox.removeStyle("overflow-y");
+                this.mainBox.removeStyle("overflow-y");
                 res = (WH - height)/2;
                 res = res -height;
                 return res;
