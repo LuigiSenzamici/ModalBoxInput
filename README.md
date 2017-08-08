@@ -26,7 +26,7 @@ and now
 ```javascript
 Box.Open();
 ```
-![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputExample.PNG)
+![Here Example](http://LuigiSenzamici.com/Content/Images/BoxInputExample.PNG)
 
 ## Validation
 it's also possible validate the input applying validation rule
@@ -49,7 +49,7 @@ Box.Open();
 
 rules evaluation sequence run by more generic to more specific rule 
 
-![Here Example](https://github.com/LuigiSenzamici/ModalBoxInput/blob/master/doc/BoxInputErrorExample.PNG)
+![Here Example](http://LuigiSenzamici.com/Content/Images/BoxInputErrorExample.PNG)
 
 ## Documentation
 
