@@ -323,11 +323,11 @@ class Box extends ElementoBase {
 class validationRule{
     field:string;
     rule:Function;
-    error:string;
+    errorMessage:string;
     constructor(field:string, validationFunction:Function, errorMessage:string){
         this.field=field;
         this.rule=validationFunction;
-        this.error=errorMessage;
+        this.errorMessage=errorMessage;
     }
 }
 class ModalBoxInput {

@@ -11,6 +11,7 @@ var rename = require("gulp-rename");
 var origin = "./src/ts/ModalBoxInput.ts";
 var destHTMLDoc = './doc/HTML_doc';
 var destAPIDoc = './doc/MD_API_doc';
+var Server = require('karma').Server;
 
 
 gulp.task("stylus:Qtest", function () {
@@ -51,6 +52,12 @@ gulp.task("dist",function(){
     return runsequence(
         ["ts:dist", "stylus:dist"]
     );
+});
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 
