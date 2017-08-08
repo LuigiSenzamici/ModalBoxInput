@@ -269,8 +269,6 @@ class ElementoInputForm extends ElementoBase {
     }
 }
 
-export {ElementoBase, ElementoButton, ElementoInput, ElementoInputForm, ElementoLabel, ElementoText};
-
 class Overlay extends ElementoBase {
     visibility: boolean = false;
     private stileDefault: string;
