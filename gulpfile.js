@@ -26,17 +26,17 @@ gulp.task("stylus:dist", function(){
                 .pipe(gulp.dest("./dist/"));
 });
 gulp.task("1ts:temp", function () {
-    return gulp.src("./src/ts/ModalBoxInput.ts")
+    return gulp.src("./src/ts/**/*.ts")
                 .pipe(ts())
                 .pipe(gulp.dest("./temp/"));
 });
 gulp.task("2ts:Qtest", function () {
-    return gulp.src("./temp/indexfortest.js")
-                .pipe(browserify())
+    return gulp.src("./temp/indexfortest.js") 
+                .pipe(browserify())               
                 .pipe(gulp.dest("./quickVisualTest/"))
 });
 gulp.task("ts:dist", function(){
-        return gulp.src("./src/ts/ModalBoxInput.ts")
+        return gulp.src("./src/ts/**/*.ts")
                 .pipe(ts())
                 .pipe(uglify())
                 .pipe(gulp.dest("./dist/"));

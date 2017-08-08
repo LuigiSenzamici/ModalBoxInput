@@ -1,4 +1,6 @@
-﻿class ElementoBase {
+﻿
+
+class ElementoBase {
     nome: string;
     id: string;
     classe: string;
@@ -228,6 +230,47 @@ class ElementoText extends ElementoBase {
         return testo;
     }
 }
+class ElementoInputForm extends ElementoBase {
+    labelElement: ElementoLabel;
+    inputElement: ElementoInput;
+    label: string;
+    errorText:ElementoText;
+    N_labelElement: any;
+    N_inputElement: any;
+    N_errorText:any;
+    constructor(label: string, parent:any) {
+        super("div", "MB-inlineInputBox", "MBI-inlineInputBox", parent);
+        this.label = label;
+    }
+    public create(): any {
+        this.elementInstance = super.create();
+        this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
+        this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
+        this.errorText = new ElementoText("ErrorText-"+this.label, "MBI-ErrorText", this.elementInstance, "");
+        this.N_labelElement = this.labelElement.create();
+        this.N_inputElement = this.inputElement.create();
+        this.N_errorText = this.errorText.create();
+        this.errorText.setStyle("display:none;");
+        return this.elementInstance;
+    }
+    public getValue(): string {
+        return this.inputElement.getValue();
+    }
+    public setValue(val: string): void {
+        this.inputElement.setValue(val);
+    }
+    public showErrorMessage(val:string):void{
+        this.errorText.setText(val);
+        this.errorText.setStyle("display:block;");
+    }
+    public hideErrorMessage():void{
+        this.errorText.setText("");
+        this.errorText.setStyle("display:none;");
+    }
+}
+
+export {ElementoBase, ElementoButton, ElementoInput, ElementoInputForm, ElementoLabel, ElementoText};
+
 class Overlay extends ElementoBase {
     visibility: boolean = false;
     private stileDefault: string;
@@ -277,45 +320,6 @@ class Box extends ElementoBase {
         this.visibility = val;
         let display: string = (this.visibility) ? "display:block;" : "display:none;";
         this.setStyle(display);
-    }
-}
-
-class ElementoInputForm extends ElementoBase {
-    labelElement: ElementoLabel;
-    inputElement: ElementoInput;
-    label: string;
-    errorText:ElementoText;
-    N_labelElement: any;
-    N_inputElement: any;
-    N_errorText:any;
-    constructor(label: string, parent:any) {
-        super("div", "MB-inlineInputBox", "MBI-inlineInputBox", parent);
-        this.label = label;
-    }
-    public create(): any {
-        this.elementInstance = super.create();
-        this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
-        this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
-        this.errorText = new ElementoText("ErrorText-"+this.label, "MBI-ErrorText", this.elementInstance, "");
-        this.N_labelElement = this.labelElement.create();
-        this.N_inputElement = this.inputElement.create();
-        this.N_errorText = this.errorText.create();
-        this.errorText.setStyle("display:none;");
-        return this.elementInstance;
-    }
-    public getValue(): string {
-        return this.inputElement.getValue();
-    }
-    public setValue(val: string): void {
-        this.inputElement.setValue(val);
-    }
-    public showErrorMessage(val:string):void{
-        this.errorText.setText(val);
-        this.errorText.setStyle("display:block;");
-    }
-    public hideErrorMessage():void{
-        this.errorText.setText("");
-        this.errorText.setStyle("display:none;");
     }
 }
 class validationRule{

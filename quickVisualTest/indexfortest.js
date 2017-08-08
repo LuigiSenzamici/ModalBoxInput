@@ -162,6 +162,7 @@ var ElementoBase = (function () {
     };
     return ElementoBase;
 }());
+exports.ElementoBase = ElementoBase;
 var ElementoInput = (function (_super) {
     __extends(ElementoInput, _super);
     function ElementoInput(tipo, id, classe, parent) {
@@ -184,6 +185,7 @@ var ElementoInput = (function (_super) {
     };
     return ElementoInput;
 }(ElementoBase));
+exports.ElementoInput = ElementoInput;
 var ElementoLabel = (function (_super) {
     __extends(ElementoLabel, _super);
     function ElementoLabel(forId, text, parent) {
@@ -201,6 +203,7 @@ var ElementoLabel = (function (_super) {
     };
     return ElementoLabel;
 }(ElementoBase));
+exports.ElementoLabel = ElementoLabel;
 var ElementoButton = (function (_super) {
     __extends(ElementoButton, _super);
     function ElementoButton(id, classe, parent, text) {
@@ -221,6 +224,7 @@ var ElementoButton = (function (_super) {
     };
     return ElementoButton;
 }(ElementoBase));
+exports.ElementoButton = ElementoButton;
 var ElementoText = (function (_super) {
     __extends(ElementoText, _super);
     function ElementoText(id, classe, parent, text) {
@@ -245,6 +249,42 @@ var ElementoText = (function (_super) {
     };
     return ElementoText;
 }(ElementoBase));
+exports.ElementoText = ElementoText;
+var ElementoInputForm = (function (_super) {
+    __extends(ElementoInputForm, _super);
+    function ElementoInputForm(label, parent) {
+        var _this = _super.call(this, "div", "MB-inlineInputBox", "MBI-inlineInputBox", parent) || this;
+        _this.label = label;
+        return _this;
+    }
+    ElementoInputForm.prototype.create = function () {
+        this.elementInstance = _super.prototype.create.call(this);
+        this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
+        this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
+        this.errorText = new ElementoText("ErrorText-" + this.label, "MBI-ErrorText", this.elementInstance, "");
+        this.N_labelElement = this.labelElement.create();
+        this.N_inputElement = this.inputElement.create();
+        this.N_errorText = this.errorText.create();
+        this.errorText.setStyle("display:none;");
+        return this.elementInstance;
+    };
+    ElementoInputForm.prototype.getValue = function () {
+        return this.inputElement.getValue();
+    };
+    ElementoInputForm.prototype.setValue = function (val) {
+        this.inputElement.setValue(val);
+    };
+    ElementoInputForm.prototype.showErrorMessage = function (val) {
+        this.errorText.setText(val);
+        this.errorText.setStyle("display:block;");
+    };
+    ElementoInputForm.prototype.hideErrorMessage = function () {
+        this.errorText.setText("");
+        this.errorText.setStyle("display:none;");
+    };
+    return ElementoInputForm;
+}(ElementoBase));
+exports.ElementoInputForm = ElementoInputForm;
 var Overlay = (function (_super) {
     __extends(Overlay, _super);
     function Overlay(visibility) {
@@ -298,40 +338,6 @@ var Box = (function (_super) {
         this.setStyle(display);
     };
     return Box;
-}(ElementoBase));
-var ElementoInputForm = (function (_super) {
-    __extends(ElementoInputForm, _super);
-    function ElementoInputForm(label, parent) {
-        var _this = _super.call(this, "div", "MB-inlineInputBox", "MBI-inlineInputBox", parent) || this;
-        _this.label = label;
-        return _this;
-    }
-    ElementoInputForm.prototype.create = function () {
-        this.elementInstance = _super.prototype.create.call(this);
-        this.labelElement = new ElementoLabel("id-" + this.label, this.label, this.elementInstance);
-        this.inputElement = new ElementoInput("text", "id-" + this.label, "MBI-inputElement", this.elementInstance);
-        this.errorText = new ElementoText("ErrorText-" + this.label, "MBI-ErrorText", this.elementInstance, "");
-        this.N_labelElement = this.labelElement.create();
-        this.N_inputElement = this.inputElement.create();
-        this.N_errorText = this.errorText.create();
-        this.errorText.setStyle("display:none;");
-        return this.elementInstance;
-    };
-    ElementoInputForm.prototype.getValue = function () {
-        return this.inputElement.getValue();
-    };
-    ElementoInputForm.prototype.setValue = function (val) {
-        this.inputElement.setValue(val);
-    };
-    ElementoInputForm.prototype.showErrorMessage = function (val) {
-        this.errorText.setText(val);
-        this.errorText.setStyle("display:block;");
-    };
-    ElementoInputForm.prototype.hideErrorMessage = function () {
-        this.errorText.setText("");
-        this.errorText.setStyle("display:none;");
-    };
-    return ElementoInputForm;
 }(ElementoBase));
 var validationRule = (function () {
     function validationRule(field, validationFunction, errorMessage) {
