@@ -12,7 +12,8 @@ var origin = "./src/ts/ModalBoxInput.ts";
 var destHTMLDoc = './doc/HTML_doc';
 var destAPIDoc = './doc/MD_API_doc';
 var Server = require('karma').Server;
-
+var jasmine = require("jasmine");
+var tsProject = ts.createProject('tsconfig.json', { noImplicitAny: true });
 
 gulp.task("stylus:Qtest", function () {
     return gulp.src("./src/index.styl")
@@ -57,9 +58,36 @@ gulp.task('test', function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
-  }, done).start();
+  }, function(){
+      done();
+  }).start();
 });
 
+gulp.task('test:prepare_module',function(){
+    return gulp.src("./src/ts/**/*.ts")
+                .pipe(ts())
+                .pipe(gulp.dest("./test/"));
+        
+});
+
+gulp.task("jasmine", function(){
+        var Jasmine = require('jasmine');
+        var jasmine = new Jasmine();
+        jasmine.loadConfigFile('jasmine.json');
+        var CustomReporter = require('jasmine-spec-reporter').SpecReporter;
+        var customReporter = new CustomReporter();
+        jasmine.addReporter(customReporter);
+        jasmine.configureDefaultReporter({
+            showColors: true
+        });
+        jasmine.execute();
+});
+gulp.task("test:jasmine", function(){
+    return runsequence(
+        "test:prepare_module",
+        "jasmine"
+    );
+});
 
 
 

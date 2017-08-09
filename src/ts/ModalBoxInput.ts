@@ -420,7 +420,7 @@ class ModalBoxInput {
                     });
                     rules.every((er:validationRule):boolean =>{
                         if(er.rule(e.getValue())==false){
-                        e.showErrorMessage(er.error);
+                        e.showErrorMessage(er.errorMessage);
                         res = false;
                         return false;
                         }

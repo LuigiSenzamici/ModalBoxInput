@@ -337,7 +337,7 @@ var validationRule = (function () {
     function validationRule(field, validationFunction, errorMessage) {
         this.field = field;
         this.rule = validationFunction;
-        this.error = errorMessage;
+        this.errorMessage = errorMessage;
     }
     return validationRule;
 }());
@@ -430,7 +430,7 @@ var ModalBoxInput = (function () {
             });
             rules.every(function (er) {
                 if (er.rule(e.getValue()) == false) {
-                    e.showErrorMessage(er.error);
+                    e.showErrorMessage(er.errorMessage);
                     res = false;
                     return false;
                 }
