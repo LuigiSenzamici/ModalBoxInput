@@ -329,6 +329,31 @@ class validationRule{
         this.rule=validationFunction;
         this.errorMessage=errorMessage;
     }
+    public NOT_EMPTY = (val:any)=>{
+        if(val!=null && val!=undefined){
+            if(typeof val === "number")return true;
+            if(val.length > 0)return true;
+        }
+        return false;
+    }
+    public MIN_LENGTH = (val:any)=>{
+        if(val==null)throw new Error("Min Length can't be null !");
+        if(val==undefined)throw new Error("Min Length can't be undefined !");
+        if(typeof val === "string"){
+            val = parseInt(val, 10);
+            if(val==null || val== undefined)throw new Error("Min Lenght is a string and can't be converted in a number !");
+        }
+        if(val<0)throw new Error("Min Length can't be a negative value !");
+        return (checkValue:any)=>{
+                if(checkValue == null)throw new Error("checkValue can't be null !");
+                if(checkValue == undefined)throw new Error("checkValue can't be undefined !");
+                if(typeof checkValue !== "string")checkValue = checkValue.toString();
+                if(checkValue.length && checkValue.length == 0)throw new Error("checkValue can't be empty !");
+                if(checkValue.length >= val)return true;
+                return false;
+        }
+
+    }
 }
 class ModalBoxInput {
         overlay: Overlay;

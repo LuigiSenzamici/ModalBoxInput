@@ -334,6 +334,41 @@ var Box = (function (_super) {
 }(ElementoBase));
 var validationRule = (function () {
     function validationRule(field, validationFunction, errorMessage) {
+        this.NOT_EMPTY = function (val) {
+            if (val != null && val != undefined) {
+                if (typeof val === "number")
+                    return true;
+                if (val.length > 0)
+                    return true;
+            }
+            return false;
+        };
+        this.MIN_LENGTH = function (val) {
+            if (val == null)
+                throw new Error("Min Length can't be null !");
+            if (val == undefined)
+                throw new Error("Min Length can't be undefined !");
+            if (typeof val === "string") {
+                val = parseInt(val, 10);
+                if (val == null || val == undefined)
+                    throw new Error("Min Lenght is a string and can't be converted in a number !");
+            }
+            if (val < 0)
+                throw new Error("Min Length can't be a negative value !");
+            return function (checkValue) {
+                if (checkValue == null)
+                    throw new Error("checkValue can't be null !");
+                if (checkValue == undefined)
+                    throw new Error("checkValue can't be undefined !");
+                if (typeof checkValue !== "string")
+                    checkValue = checkValue.toString();
+                if (checkValue.length && checkValue.length == 0)
+                    throw new Error("checkValue can't be empty !");
+                if (checkValue.length >= val)
+                    return true;
+                return false;
+            };
+        };
         this.field = field;
         this.rule = validationFunction;
         this.errorMessage = errorMessage;
