@@ -74,9 +74,9 @@ DR.BETWEEN(min, max)//two number parameter evaluate (input val)>= min && (input 
 Here a complete example:
 ```javascript
 var boxClass = require("Modal-Box-Input").ModalBoxInput;
-var DRClass = require("Modal-Box-Input").DefaultClass;
+var DRClass = require("Modal-Box-Input").DefaultRules;
 var ValRuleClass = require("Modal-Box-Input").validationRule;
-var regExpIsEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 
 var Box = new boxClass("New Account", "Complete your subscription", ["Name", "Surname", "Username", "Password", "Email"]);
 var DR = new DRClass();
@@ -90,20 +90,21 @@ var username0 = new ValRuleClass("Username", DR.NOT_EMPTY, "field can't be empty
 var username1 = new ValRuleClass("Username", DR.BETWEEN(3, 20), "field lenght must be >= 3 && <= 20");
 
 var password0 = new ValRuleClass("Password", DR.NOT_EMPTY, "field can't be empty");
-var password1 = new ValRuleClass("Password", DR.BETWEEN(8, 20), "field lenght must be >= 8 && <= 20");
+var password1 = new ValRuleClass("Password", DR.BETWEEN(8, 40), "field lenght must be >= 8 && <= 20");
 
-var email0 = new ValRuleClass("Email", DR.NOT_EMPTY, , "field can't be empty");
+var email0 = new ValRuleClass("Email", DR.NOT_EMPTY, "field can't be empty");
 var email1 = new ValRuleClass("Email", DR.BETWEEN(4, 30), "field lenght must be >= 4 && <= 30");
 
-function isEmail(val){
-    return val.test(regExpIsEmail);
+function SimplyEmailCheck(val){
+    if(val.indexOf("@")!=-1 && val.indexOf(".")!=-1)return true;
+    return false;
 }
-var email2 = new ValRuleClass("Email", isEmail, "field isn't a valid Email");
+var email2 = new ValRuleClass("Email", SimplyEmailCheck, "field isn't a valid Email");
 
-Box.setValidationRule([name0, name1
-                       surname0, surname1
-                       username0, username1
-                       password0, password1
+Box.setValidationRule([name0, name1,
+                       surname0, surname1,
+                       username0, username1,
+                       password0, password1,
                        email0, email1, email2]);
 
 Box.setOkButtonEvent(function(dataFromInput){
@@ -119,9 +120,11 @@ Box.setOkButtonEvent(function(dataFromInput){
 
 Box.Open();
 ```
-![Here Image of an full Example 1](http://LuigiSenzamici.com/Content/Images/BoxInputErrorExample1.PNG)
+![Modal-Box-Input error data](http://LuigiSenzamici.com/Content/Images/BoxInputErrorExample1.PNG)
 
-![Here Image of an full Example 2](http://LuigiSenzamici.com/Content/Images/BoxInputErrorExample2.PNG)
+![Modal-Box-Input correct data](http://LuigiSenzamici.com/Content/Images/BoxInputExample1.PNG)
+
+![Modal-Box-Input res data](http://LuigiSenzamici.com/Content/Images/BoxInputResult.PNG)
 
 
 

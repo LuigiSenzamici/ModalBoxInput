@@ -1,10 +1,10 @@
 {
   "name": "modal-box-input",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "A modal box for input data",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp test:jasmine",
     "local": "gulp ts:quickTest",
     "dist": "gulp dist",
     "docs": "npm run typedoc -- --options typedoc.json --excludePrivate",
