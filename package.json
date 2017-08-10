@@ -1,6 +1,6 @@
 {
   "name": "modal-box-input",
-  "version": "2.1.4",
+  "version": "2.1.7",
   "description": "A modal box for input data",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {

@@ -1,6 +1,8 @@
 ﻿var MBClass = require("./ModalBoxInput.js").ModalBoxInput;
 var VRClass = require("./ModalBoxInput.js").validationRule;
 var MBI = new MBClass("login box", "insert your credential", ["username", "password"]);
+MBI.setCssFile("ModalBoxInput.css");
+//MBI.setNodeModulesPath("../");
 //var username0 = new VRClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "field can't be empty");
 //var username1 = new VRClass("username", function(val){return (val.length>3)?true:false;}, "field length must be > 3");
 //var password = new VRClass("password", function(val){return (val.length>0)?true:false;}, "field can't be empty");

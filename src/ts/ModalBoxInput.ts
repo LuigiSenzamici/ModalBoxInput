@@ -418,7 +418,21 @@ class ModalBoxInput {
         inputList: Array<ElementoInputForm> = [];
         validationRule : validationRule;
         validationRules:Array<validationRule> = [];
+        private cssDefaultFileName = "ModalBoxInput.css";
+        private cssDefaultFilePath = "node_modules/modal-box-input/dist/";
+        private cssDefaultBasePath = "../";
+
+        private cssFileName = "ModalBoxInput.css";
+        private cssFilePath="";
+        private cssBasePath="";
+
+        private currentCssFile = "";
             EventOk: (event: any) =>void;
+            private updateCssLinkRef(){
+                var link = document.querySelectorAll('link[data-module="cssPath"')[0];
+                this.currentCssFile = this.cssBasePath + this.cssFilePath + this.cssFileName
+                link.setAttribute("href", this.currentCssFile);
+            }            
             private genTitolo(parent: any, titolo:string): void {
                 //titleBox
                 this.titleBox = new ElementoBase("div", "MB-titleBox", "MBI-titleBox", parent);
@@ -537,10 +551,16 @@ class ModalBoxInput {
                 return res;
             }
             private genCssReference():void{
+                var res = document.querySelectorAll('link[data-module="cssPath"');
+                if(res!=null && res!=undefined && res.length > 0)return;
                 let head = document.getElementsByTagName("head")[0];
                 let stile = document.createElement("link");
                 stile.setAttribute("rel","stylesheet");
-                stile.setAttribute("href", "node_modules/Modal-Box-Input/dist/ModalBoxInput.css");
+                stile.setAttribute("data-module", "cssPath");
+                this.cssBasePath = this.cssDefaultBasePath;
+                this.cssFileName = this.cssDefaultFileName;
+                this.cssFilePath = this.cssDefaultFilePath;
+                stile.setAttribute("href", this.cssDefaultBasePath +  this.cssDefaultFilePath + this.cssDefaultBasePath);
                 head.appendChild(stile);
             }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
@@ -603,6 +623,24 @@ class ModalBoxInput {
             public setValidationRule(rules:Array<validationRule>):void{
                 this.validationRules = rules;
             }
+            public setCssFileName(filename:string){
+                this.cssFileName = filename;
+                this.updateCssLinkRef();
+            }
+            public setCssFilePath(filepath:string){
+                this.cssFilePath = filepath;
+                this.updateCssLinkRef();
+            }
+            public setCssBasePath(filebase:string){
+                this.cssBasePath = filebase;
+                this.updateCssLinkRef();
+            }
+            public setCssFile(filepath:string){
+                var link = document.querySelectorAll('link[data-module="cssPath"')[0];
+                this.currentCssFile = filepath;
+                link.setAttribute("href", filepath);
+            }
+
 }
 
 export {ModalBoxInput, validationRule, DefaultRules};

@@ -464,6 +464,13 @@ var ModalBoxInput = (function () {
         if (testoBottoni === void 0) { testoBottoni = ["Ok", "Reset"]; }
         this.inputList = [];
         this.validationRules = [];
+        this.cssDefaultFileName = "ModalBoxInput.css";
+        this.cssDefaultFilePath = "node_modules/modal-box-input/dist/";
+        this.cssDefaultBasePath = "../";
+        this.cssFileName = "ModalBoxInput.css";
+        this.cssFilePath = "";
+        this.cssBasePath = "";
+        this.currentCssFile = "";
         this.overlay = new Overlay(false);
         this.mainBox = new Box(false);
         var N_overlay = this.overlay.create();
@@ -474,6 +481,11 @@ var ModalBoxInput = (function () {
         this.genButtonBox(N_mainBox, testoBottoni);
         this.genCssReference();
     }
+    ModalBoxInput.prototype.updateCssLinkRef = function () {
+        var link = document.querySelectorAll('link[data-module="cssPath"')[0];
+        this.currentCssFile = this.cssBasePath + this.cssFilePath + this.cssFileName;
+        link.setAttribute("href", this.currentCssFile);
+    };
     ModalBoxInput.prototype.genTitolo = function (parent, titolo) {
         //titleBox
         this.titleBox = new ElementoBase("div", "MB-titleBox", "MBI-titleBox", parent);
@@ -588,10 +600,17 @@ var ModalBoxInput = (function () {
         return res;
     };
     ModalBoxInput.prototype.genCssReference = function () {
+        var res = document.querySelectorAll('link[data-module="cssPath"');
+        if (res != null && res != undefined && res.length > 0)
+            return;
         var head = document.getElementsByTagName("head")[0];
         var stile = document.createElement("link");
         stile.setAttribute("rel", "stylesheet");
-        stile.setAttribute("href", "node_modules/Modal-Box-Input/dist/ModalBoxInput.css");
+        stile.setAttribute("data-module", "cssPath");
+        this.cssBasePath = this.cssDefaultBasePath;
+        this.cssFileName = this.cssDefaultFileName;
+        this.cssFilePath = this.cssDefaultFilePath;
+        stile.setAttribute("href", this.cssDefaultBasePath + this.cssDefaultFilePath + this.cssDefaultBasePath);
         head.appendChild(stile);
     };
     ModalBoxInput.prototype.Open = function () {
@@ -640,6 +659,23 @@ var ModalBoxInput = (function () {
     };
     ModalBoxInput.prototype.setValidationRule = function (rules) {
         this.validationRules = rules;
+    };
+    ModalBoxInput.prototype.setCssFileName = function (filename) {
+        this.cssFileName = filename;
+        this.updateCssLinkRef();
+    };
+    ModalBoxInput.prototype.setCssFilePath = function (filepath) {
+        this.cssFilePath = filepath;
+        this.updateCssLinkRef();
+    };
+    ModalBoxInput.prototype.setCssBasePath = function (filebase) {
+        this.cssBasePath = filebase;
+        this.updateCssLinkRef();
+    };
+    ModalBoxInput.prototype.setCssFile = function (filepath) {
+        var link = document.querySelectorAll('link[data-module="cssPath"')[0];
+        this.currentCssFile = filepath;
+        link.setAttribute("href", filepath);
     };
     return ModalBoxInput;
 }());
