@@ -333,11 +333,126 @@ var Box = (function (_super) {
     };
     return Box;
 }(ElementoBase));
+var DefaultRules = (function () {
+    function DefaultRules() {
+        this.NOT_EMPTY = function (val) {
+            if (val != null && val != undefined) {
+                if (typeof val === "number")
+                    return true;
+                if (val.length > 0)
+                    return true;
+            }
+            return false;
+        };
+        this.MIN_LENGTH = function (val) {
+            if (val == null)
+                throw new Error("Min Length can't be null !");
+            if (val == undefined)
+                throw new Error("Min Length can't be undefined !");
+            if (val == "")
+                throw new Error("Min Length can't be empty !");
+            if (typeof val === "string")
+                throw new Error("Min Length can't be a string");
+            if (val < 0)
+                throw new Error("Min Length can't be a negative value !");
+            return function (checkValue) {
+                if (checkValue == null)
+                    return false;
+                if (checkValue == undefined)
+                    return false;
+                if (typeof checkValue !== "string")
+                    checkValue = checkValue.toString();
+                if (checkValue.length == 0)
+                    return false;
+                if (checkValue.length >= val)
+                    return true;
+                return false;
+            };
+        };
+        this.MAX_LENGTH = function (val) {
+            if (val == null)
+                throw new Error("Max Length can't be null !");
+            if (val == undefined)
+                throw new Error("Max Length can't be undefined !");
+            if (val == "")
+                throw new Error("Max Length can't be empty !");
+            if (typeof val === "string")
+                throw new Error("Max Length can't be a string");
+            if (val < 0)
+                throw new Error("Max Length can't be a negative value !");
+            return function (checkValue) {
+                if (checkValue == null)
+                    return false;
+                if (checkValue == undefined)
+                    return false;
+                if (typeof checkValue !== "string")
+                    checkValue = checkValue.toString();
+                if (checkValue.length == 0)
+                    return false;
+                if (checkValue.length <= val)
+                    return true;
+                return false;
+            };
+        };
+        this.EQUAL = function (val) {
+            if (val == null)
+                throw new Error("Value can't be null !");
+            if (val == undefined)
+                throw new Error("Value can't be undefined !");
+            if (val == "")
+                throw new Error("Value can't be empty !");
+            return function (checkValue) {
+                if (checkValue == null)
+                    return false;
+                if (checkValue == undefined)
+                    return false;
+                if (checkValue.length == 0)
+                    return false;
+                if (checkValue == val)
+                    return true;
+                return false;
+            };
+        };
+        this.BETWEEN = function (val_A, val_B) {
+            if (val_A == null)
+                throw new Error("val_A can't be null !");
+            if (val_A == undefined)
+                throw new Error("val_A can't be undefined !");
+            if (val_A == "")
+                throw new Error("val_A can't be empty !");
+            if (val_B == null)
+                throw new Error("val_B can't be null !");
+            if (val_B == undefined)
+                throw new Error("val_B can't be undefined !");
+            if (val_B == "")
+                throw new Error("val_B can't be empty !");
+            if (typeof val_A === 'string' || typeof val_B === 'string')
+                throw new Error("values can't be string !");
+            if (val_A < 0 || val_B < 0)
+                throw new Error("values can't be negative !");
+            if (val_A >= val_B)
+                throw new Error("Bad values: val_A can't be >= val_B !");
+            return function (checkValue) {
+                if (checkValue == null)
+                    return false;
+                if (checkValue == undefined)
+                    return false;
+                if (checkValue.length == 0)
+                    return false;
+                if (checkValue.length >= val_A && checkValue.length <= val_B)
+                    return true;
+                return false;
+            };
+        };
+    }
+    return DefaultRules;
+}());
+exports.DefaultRules = DefaultRules;
 var validationRule = (function () {
     function validationRule(field, validationFunction, errorMessage) {
         this.field = field;
-        this.rule = validationFunction;
         this.errorMessage = errorMessage;
+        this.rule = validationFunction;
     }
     return validationRule;
 }());
@@ -534,10 +649,15 @@ exports.ModalBoxInput = ModalBoxInput;
 },{}],2:[function(require,module,exports){
 var MBClass = require("./ModalBoxInput.js").ModalBoxInput;
 var VRClass = require("./ModalBoxInput.js").validationRule;
-var MBI = new MBClass("primo box", "adesso proviamo cosa succede", ["username", "password"]);
-var username0 = new VRClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "il campo non puo essere vuoto");
-var username1 = new VRClass("username", function(val){return (val.length>3)?true:false;}, "la lunghezza deve essere > 3");
-var password = new VRClass("password", function(val){return (val.length>0)?true:false;}, "il campo non puo essere vuoto");
+var MBI = new MBClass("login box", "insert your credential", ["username", "password"]);
+//var username0 = new VRClass("username", function(val){return (val!=null && val!=undefined && val.length>0)?true:false;}, "field can't be empty");
+//var username1 = new VRClass("username", function(val){return (val.length>3)?true:false;}, "field length must be > 3");
+//var password = new VRClass("password", function(val){return (val.length>0)?true:false;}, "field can't be empty");
+var DRClass = require("./ModalBoxInput.js").DefaultRules;
+var DR = new DRClass();
+var username0 = new VRClass("username", DR.NOT_EMPTY, "field can't be empty");
+var username1 = new VRClass("username", DR.MIN_LENGTH(4), "field length must be > 3");
+var password = new VRClass("password", DR.NOT_EMPTY, "field can't be empty");
 MBI.setValidationRule([username0, username1, password]);
 MBI.setOkButtonEvent(function (valori) { console.log(valori);})
 MBI.Open();

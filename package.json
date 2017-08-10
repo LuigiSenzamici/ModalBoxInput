@@ -1,6 +1,6 @@
 {
   "name": "modal-box-input",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "description": "A modal box for input data",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {
@@ -31,13 +31,13 @@
   },
   "homepage": "https://github.com/LuigiSenzamici/ModalBoxInput#readme",
   "devDependencies": {
-    "@types/chai": "^4.0.2",
+    "@types/chai": "4.0.2",
     "@types/core-js": "0.9.36",
     "@types/lodash": "4.14.51",
     "@types/mocha": "^2.2.41",
     "@types/node": "7.0.7",
     "browserify": "14.4.0",
-    "chai": "^4.1.1",
+    "chai": "4.1.1",
     "gulp": "3.9.1",
     "gulp-browserify": "0.5.1",
     "gulp-karma": "0.0.5",
@@ -48,7 +48,7 @@
     "gulp-typescript": "3.2.1",
     "gulp-uglify": "3.0.0",
     "jasmine": "2.7.0",
-    "jasmine-spec-reporter": "^4.2.0",
+    "jasmine-spec-reporter": "4.2.0",
     "karma": "1.7.0",
     "karma-chrome-launcher": "2.2.0",
     "karma-jasmine": "1.1.0",
@@ -57,6 +57,7 @@
     "lodash": "4.17.2",
     "mocha": "3.5.0",
     "run-sequence": "2.1.0",
+    "should": "11.2.1",
     "typedoc": "0.8.0",
     "typescript": "2.4.2",
     "vinyl-transform": "1.0.0"

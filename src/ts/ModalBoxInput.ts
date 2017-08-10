@@ -320,40 +320,88 @@ class Box extends ElementoBase {
         this.setStyle(display);
     }
 }
-class validationRule{
-    field:string;
-    rule:Function;
-    errorMessage:string;
-    constructor(field:string, validationFunction:Function, errorMessage:string){
-        this.field=field;
-        this.rule=validationFunction;
-        this.errorMessage=errorMessage;
-    }
+class DefaultRules{
     public NOT_EMPTY = (val:any)=>{
         if(val!=null && val!=undefined){
             if(typeof val === "number")return true;
             if(val.length > 0)return true;
         }
         return false;
-    }
+    };
     public MIN_LENGTH = (val:any)=>{
         if(val==null)throw new Error("Min Length can't be null !");
         if(val==undefined)throw new Error("Min Length can't be undefined !");
-        if(typeof val === "string"){
-            val = parseInt(val, 10);
-            if(val==null || val== undefined)throw new Error("Min Lenght is a string and can't be converted in a number !");
-        }
+        if(val =="")throw new Error("Min Length can't be empty !");
+        if(typeof val === "string")throw new Error("Min Length can't be a string");
         if(val<0)throw new Error("Min Length can't be a negative value !");
         return (checkValue:any)=>{
-                if(checkValue == null)throw new Error("checkValue can't be null !");
-                if(checkValue == undefined)throw new Error("checkValue can't be undefined !");
+                if(checkValue == null)return false;
+                if(checkValue == undefined)return false;
                 if(typeof checkValue !== "string")checkValue = checkValue.toString();
-                if(checkValue.length && checkValue.length == 0)throw new Error("checkValue can't be empty !");
+                if(checkValue.length == 0)return false;
                 if(checkValue.length >= val)return true;
                 return false;
         }
 
     }
+    public MAX_LENGTH = (val:any)=>{
+        if(val==null)throw new Error("Max Length can't be null !");
+        if(val==undefined)throw new Error("Max Length can't be undefined !");
+        if(val =="")throw new Error("Max Length can't be empty !");
+        if(typeof val === "string")throw new Error("Max Length can't be a string");
+        if(val<0)throw new Error("Max Length can't be a negative value !");
+        return (checkValue:any)=>{
+                if(checkValue == null)return false;
+                if(checkValue == undefined)return false;
+                if(typeof checkValue !== "string")checkValue = checkValue.toString();
+                if(checkValue.length == 0)return false;
+                if(checkValue.length <= val)return true;
+                return false;
+        }
+
+    }  
+    public EQUAL = (val:any)=>{
+        if(val==null)throw new Error("Value can't be null !");
+        if(val==undefined)throw new Error("Value can't be undefined !");
+        if(val =="")throw new Error("Value can't be empty !");
+        return (checkValue:any)=>{
+                if(checkValue == null)return false;
+                if(checkValue == undefined)return false;
+                 if(checkValue.length == 0)return false;
+                if(checkValue == val)return true;
+                return false;
+        }
+    }
+    public BETWEEN = (val_A:any, val_B:any)=>{
+        if(val_A == null)throw new Error("val_A can't be null !");
+        if(val_A == undefined)throw new Error("val_A can't be undefined !");
+        if(val_A == "")throw new Error("val_A can't be empty !");
+        if(val_B == null)throw new Error("val_B can't be null !");
+        if(val_B == undefined)throw new Error("val_B can't be undefined !");
+        if(val_B == "")throw new Error("val_B can't be empty !");
+        if(typeof val_A === 'string' || typeof val_B ==='string')throw new Error("values can't be string !")
+        if(val_A<0 || val_B <0)throw new Error("values can't be negative !");
+        if(val_A >= val_B)throw new Error("Bad values: val_A can't be >= val_B !");
+        return (checkValue:any)=>{
+                 if(checkValue == null)return false;
+                if(checkValue == undefined)return false;
+                 if(checkValue.length == 0)return false;
+                if(checkValue.length >= val_A && checkValue.length <= val_B)return true;
+                return false;
+        }
+    }   
+    constructor(){}
+}
+class validationRule{
+    field:string;
+    rule:Function;
+    errorMessage:string;
+    constructor(field:string, validationFunction:any, errorMessage:string){
+        this.field=field;
+        this.errorMessage=errorMessage;
+        this.rule = validationFunction;
+    }
+
 }
 class ModalBoxInput {
         overlay: Overlay;
@@ -557,4 +605,4 @@ class ModalBoxInput {
             }
 }
 
-export {ModalBoxInput, validationRule};
+export {ModalBoxInput, validationRule, DefaultRules};
