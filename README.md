@@ -28,7 +28,8 @@ Box.Open();
 ```
 ![Here Example](http://LuigiSenzamici.com/Content/Images/BoxInputExample.PNG)
 
-##Styling
+## Styling
+
 for styling Box class automatically insert a tag
 ```html
 <link rel="stylesheet" href="node_modules/Modal-Box-Input/dist/ModalBoxInput.css">
@@ -36,6 +37,7 @@ for styling Box class automatically insert a tag
 if your path is different you have to link stylesheet in your path name in node_modules folder.
 
 ## Validation
+
 it's also possible validate the input applying validation rule
 
 first get validationRule class
@@ -56,8 +58,8 @@ Box.Open();
 insert rules in a sequence that run by more generic to more specific rule 
 ![Here Image of an Example](http://LuigiSenzamici.com/Content/Images/BoxInputErrorExample.PNG)
 
-##VALIDATION UPDATE
-in this release are available default validation functions obtained by DefaultRules class;
+## Validation Update
+by this release are available default validation functions obtained by DefaultRules class;
 first get an istance of DefaultRules class:
 ```javascript
 var DRClass = require("Modal-Box-Input").DefaultRules;
