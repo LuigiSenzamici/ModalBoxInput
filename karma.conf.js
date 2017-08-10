@@ -10,20 +10,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["chai","jasmine", "karma-typescript"],
+    frameworks: ["jasmine", "browserify"],
 
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: "src/**/*.ts" }
+      { pattern: "test/**/*.js" }
     ],
 
     plugins:[
-      "karma-chai",
-      "karma-chrome-launcher",
-      "karma-jasmine",
-      "karma-typescript",
-      "karma-typescript-preprocessor",
+      "karma-*"
     ],
     // list of files to exclude
     exclude: [
@@ -33,10 +29,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './test/**/*.ts': ['karma-typescript']
+      './test/**/*.js': ['browserify']
     },
-
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -62,7 +56,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Firefox', 'IE'],
 
 
     // Continuous Integration mode
@@ -71,22 +65,8 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity,
+    concurrency: Infinity
 
-    typescriptPreprocessor: {
-      // options passed to the typescript compiler 
-      options: {
-      "module": "umd",
-      "noImplicitAny": true,
-      "noResolve":true,
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": false,
-      "target": "ES2015"
-      },
-        transformPath: function(path) {
-        return path.replace(/\.ts$/, '.js');
-      }
-    }
+
   });
 }
