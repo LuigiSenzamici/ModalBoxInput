@@ -65,5 +65,6 @@ dist/*
 obj/*
 .ntvs_analysis.dat.tmp
 doc/detail/*
-
+quickVisualTest/*
+temp/*
 
