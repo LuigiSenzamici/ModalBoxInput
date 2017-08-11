@@ -1,5 +1,5 @@
 MBI-Overlay
-MBI-box
+MBI-Box
 MBI-titleBox
 	MBI-Text
 	MBI-closeButton

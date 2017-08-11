@@ -302,7 +302,7 @@ class Box extends ElementoBase {
     left:string;
     private stileDefault: string;
     constructor(visibility: boolean = false, width:string = "400px", height:string="auto") {
-        super("div", "MB-Box", "MBI-box", document.getElementsByTagName("body")[0]);
+        super("div", "MB-Box", "MBI-Box", document.getElementsByTagName("body")[0]);
         this.visibility = visibility;
         let display: string = (this.visibility) ? "display:block;" : "display:none;";
         this.width= "width:" + width + ";";
