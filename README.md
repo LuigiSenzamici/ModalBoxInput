@@ -12,7 +12,7 @@ get boxclass from module
 ```javascript
 var boxClass = require("Modal-Box-Input").ModalBoxInput;
 var Box = new boxClass("title", "message", ["input 1 name", "input 2 name" ... "input n name"], ["ok button text", "reset button text"]);
-Box.okButtonEvent(fuction(dataFromInputs){
+Box.setOkButtonEvent(fuction(dataFromInputs){
     //do something with array of name/value input
     //[
     //   {name:"input 1 name", value:"value of input 1"}

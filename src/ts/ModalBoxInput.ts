@@ -423,8 +423,8 @@ class ModalBoxInput {
         private cssDefaultBasePath = "../";
 
         private cssFileName = "ModalBoxInput.css";
-        private cssFilePath="";
-        private cssBasePath="";
+        private cssFilePath="node_modules/modal-box-input/dist/";
+        private cssBasePath="../";
 
         private currentCssFile = "";
             EventOk: (event: any) =>void;
