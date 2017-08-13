@@ -94,19 +94,19 @@ var ValRuleClass = require("Modal-Box-Input").validationRule;
 var Box = new boxClass("New Account", "Complete your subscription", ["Name", "Surname", "Username", "Password", "Email"]);
 var DR = new DRClass();
 var name0 = new ValRuleClass("Name", DR.NOT_EMPTY, "field can't be empty");
-var name1 = new ValRuleClass("Name", DR.BETWEEN(3, 20), "field lenght must be >= 3 && <= 20");
+var name1 = new ValRuleClass("Name", DR.BETWEEN(3, 20), "field length must be >= 3 && <= 20");
 
 var surname0 = new ValRuleClass("Surname", DR.NOT_EMPTY, "field can't be empty");
-var surname1 = new ValRuleClass("Surname", DR.BETWEEN(3, 20), "field lenght must be >= 3 && <= 20");
+var surname1 = new ValRuleClass("Surname", DR.BETWEEN(3, 20), "field length must be >= 3 && <= 20");
 
 var username0 = new ValRuleClass("Username", DR.NOT_EMPTY, "field can't be empty");
-var username1 = new ValRuleClass("Username", DR.BETWEEN(3, 20), "field lenght must be >= 3 && <= 20");
+var username1 = new ValRuleClass("Username", DR.BETWEEN(3, 20), "field length must be >= 3 && <= 20");
 
 var password0 = new ValRuleClass("Password", DR.NOT_EMPTY, "field can't be empty");
-var password1 = new ValRuleClass("Password", DR.BETWEEN(8, 40), "field lenght must be >= 8 && <= 20");
+var password1 = new ValRuleClass("Password", DR.BETWEEN(8, 40), "field length must be >= 8 && <= 20");
 
 var email0 = new ValRuleClass("Email", DR.NOT_EMPTY, "field can't be empty");
-var email1 = new ValRuleClass("Email", DR.BETWEEN(4, 30), "field lenght must be >= 4 && <= 30");
+var email1 = new ValRuleClass("Email", DR.BETWEEN(4, 30), "field length must be >= 4 && <= 30");
 
 function SimplyEmailCheck(val){
     if(val.indexOf("@")!=-1 && val.indexOf(".")!=-1)return true;

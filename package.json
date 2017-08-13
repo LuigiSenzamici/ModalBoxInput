@@ -1,7 +1,7 @@
 {
   "name": "modal-box-input",
-  "version": "2.2.0",
-  "description": "[style debugged] A modal box for input data",
+  "version": "2.2.1",
+  "description": "A modal box for input data with data validation and customizable style",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {
     "test": "gulp test",
