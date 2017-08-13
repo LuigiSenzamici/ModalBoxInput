@@ -1,6 +1,6 @@
 {
   "name": "modal-box-input",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "A modal box for input data with data validation and customizable style",
   "main": "./dist/ModalBoxInput.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "input",
     "data",
     "input",
-    "text"
+    "text", "customizable", "style"
   ],
   "author": "Luigi Senzamici (luigisenzamici@gmail.com)",
   "license": "MIT",

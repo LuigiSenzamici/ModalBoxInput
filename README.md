@@ -1,6 +1,6 @@
 # Modal Box Input
 
-Simply a Modal Box that display a form for input data
+A modal box for input data with data validation and customizable style
 
 ## Getting Started
 ```bash
