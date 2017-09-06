@@ -1,7 +1,7 @@
 # Modal Box Input
 
 A modal box for input data with data validation and customizable style
-
+[BUGFIX RESOLVED (base path css bug)]
 ## Getting Started
 ```bash
 npm install modal-box-input --save

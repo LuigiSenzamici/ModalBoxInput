@@ -423,8 +423,8 @@ class ModalBoxInput {
         private cssDefaultBasePath = "../";
 
         private cssFileName = "ModalBoxInput.css";
-        private cssFilePath="node_modules/modal-box-input/dist/";
-        private cssBasePath="../";
+        private cssFilePath = "node_modules/modal-box-input/dist/";
+        private cssBasePath = "../";
 
         private currentCssFile = "";
             EventOk: (event: any) =>void;
@@ -558,7 +558,7 @@ class ModalBoxInput {
                 this.cssBasePath = this.cssDefaultBasePath;
                 this.cssFileName = this.cssDefaultFileName;
                 this.cssFilePath = this.cssDefaultFilePath;
-                stile.setAttribute("href", this.cssDefaultBasePath +  this.cssDefaultFilePath + this.cssDefaultBasePath);
+                stile.setAttribute("href", this.cssDefaultBasePath +  this.cssDefaultFilePath + this.cssDefaultFileName);
                 head.appendChild(stile);
             }
             constructor(titolo:string = "", messaggio:string="", listaInput:string[]=[], testoBottoni:string[]=["Ok", "Reset"]) {
