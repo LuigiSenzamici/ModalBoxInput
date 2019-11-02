@@ -58,7 +58,7 @@
     "karma-jasmine": "1.1.0",
     "karma-typescript": "3.0.5",
     "karma-typescript-preprocessor": "0.3.1",
-    "lodash": "4.17.2",
+    "lodash": "4.17.13",
     "mocha": "3.5.0",
     "run-sequence": "2.1.0",
     "should": "11.2.1",
